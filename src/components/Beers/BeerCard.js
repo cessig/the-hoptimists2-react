@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const BeerCard = (props) => {
-	const { name, style, notes, rating, brewery, _id } = props.beer;
+	const { name, style, notes, rating, brewery, _id, breweryName } = props.beer;
+	console.log(brewery);
 	return (
 		<>
 			<Link to={`/beer/${_id}`}>
@@ -10,7 +11,7 @@ const BeerCard = (props) => {
 					<div className="image-wrapper"></div>
 					<h3>{name}</h3>
 					<p>
-						{brewery}, {style}, {notes}, {rating},
+						{breweryName}, {style}, {notes}, {rating},
 					</p>
 				</div>
 			</Link>

@@ -9,7 +9,7 @@ const BreweryCard = (props) => {
 				<div className="brewery-card">
 					<div className="image-wrapper"></div>
 					<h3>{name}</h3>
-					<p>{beers}</p>
+					{/* <p>{beers}</p> */}
 				</div>
 			</Link>
 			<Link to={`/brewery/${_id}/edit`} style={{ color: "black" }}>
