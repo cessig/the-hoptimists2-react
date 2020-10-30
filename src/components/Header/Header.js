@@ -9,6 +9,7 @@ const Header = (props) => {
 			<div className="logo">
 				<NavLink to="/">Beers!</NavLink>
 			</div>
+
 			<div className="links">
 				<ul>
 					<li>
@@ -16,6 +17,12 @@ const Header = (props) => {
 					</li>
 					<li>
 						<NavLink to="/beers/new">Add New Beer</NavLink>
+					</li>
+					<li>
+						<NavLink to="/brewery">All brewerys </NavLink>
+					</li>
+					<li>
+						<NavLink to="/brewery/new">Add New Brewery</NavLink>
 					</li>
 				</ul>
 			</div>

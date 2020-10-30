@@ -13,6 +13,7 @@ class BeerShow extends React.Component {
 
 	fetchBeer = () => {
 		BeerModel.show(this.props.match.params.id).then((json) => {
+			console.log(json);
 			this.setState({
 				beer: json.beer,
 			});
