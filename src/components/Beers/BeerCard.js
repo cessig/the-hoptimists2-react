@@ -6,12 +6,13 @@ const BeerCard = (props) => {
 	console.log(brewery);
 	return (
 		<>
-			<Link to={`/beer/${_id}`}>
+			<Link to={`/beers/${_id}`}>
 				<div className="beer-card">
 					<div className="image-wrapper"></div>
 					<h3>{name}</h3>
 					<p>
-						{breweryName}, {style}, {notes}, {rating},
+						{breweryName && `${breweryName}, `}
+						{style}, {notes}, {rating},
 					</p>
 				</div>
 			</Link>

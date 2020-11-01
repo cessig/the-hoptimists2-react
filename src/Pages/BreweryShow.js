@@ -1,32 +1,27 @@
-import React from "react";
-import BreweryCard from "../components/Brewery/Brewery";
+import React, { useState, useEffect } from "react";
 import BreweryModel from "../Models/BreweryModel";
+import BeerList from "../components/Beers/BeerList";
 
-class BreweryShow extends React.Component {
-	state = {
-		Brewery: null,
-	};
+const BreweryShow = function (props) {
+	const [brewery, setBrewery] = useState(null);
 
-	componentDidMount() {
-		this.fetchBrewery();
-	}
-
-	fetchBrewery = () => {
-		BreweryModel.show(this.props.match.params.id).then((json) => {
+	useEffect(() => {
+		BreweryModel.show(props.match.params.id).then((json) => {
 			console.log(json);
-			this.setState({
-				Brewery: json.Brewery,
-			});
+			setBrewery(json.brewery);
 		});
-	};
+	}, [props.match.params.id]);
 
-	render() {
-		return this.state.brewery ? (
-			<BreweryCard brewery={this.state.brewery} />
-		) : (
-			<h3>Loading...</h3>
-		);
-	}
-}
+	const jsx = brewery ? (
+		<div>
+			<h1>{brewery.name}</h1>
+			<BeerList beersArray={brewery.beers} />
+		</div>
+	) : (
+		<h3>Loading...</h3>
+	);
+
+	return jsx;
+};
 
 export default BreweryShow;

@@ -1,90 +1,97 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import BreweryModel from "../Models/BreweryModel";
 import BeerModel from "../Models/BeerModel";
 
-class NewBeer extends React.Component {
-	state = {
-		name: "",
-		style: "",
-		notes: "",
-		rating: "",
-		completed: false,
-	};
+const NewBeer = function (props) {
+	const [nameInput, setNameInput] = useState("");
+	const [styleInput, setStyleInput] = useState("");
+	const [notesInput, setNotesInput] = useState("");
+	const [ratingInput, setRatingInput] = useState("");
+	const [breweryInput, setBreweryInput] = useState("");
 
-	handleSubmit = (event) => {
+	const [brewerys, setBrewerys] = useState([]);
+
+	useEffect(() => {
+		BreweryModel.all().then((json) => {
+			console.log(json);
+			setBrewerys(json.brewery);
+		});
+	}, []);
+
+	const handleSubmit = (event) => {
 		event.preventDefault();
+		console.log("We got this far");
+		const beerToCreate = {
+			name: nameInput,
+			style: styleInput,
+			notes: notesInput,
+			rating: ratingInput,
+			brewery: breweryInput,
+		};
 
-		BeerModel.create(this.state).then((json) => {
-			this.props.history.push("/beers");
+		BeerModel.create(beerToCreate).then((json) => {
+			props.history.push("/beers");
 		});
 	};
 
-	handleChange = (event) => {
-		if (event.target.type !== "text") {
-			this.setState((prevState) => ({
-				completed: !prevState.completed,
-			}));
-		} else {
-			this.setState({
-				[event.target.name]: event.target.value,
-			});
-		}
-	};
+	return (
+		<div>
+			<h2>New Beer</h2>
+			<form onSubmit={handleSubmit}>
+				<div className="form-input">
+					<label htmlFor="name">Name</label>
+					<input
+						type="text"
+						name="name"
+						onChange={(e) => setNameInput(e.target.value)}
+						value={nameInput}
+					/>
+				</div>
+				<div className="form-input">
+					<label htmlFor="Style">Style</label>
+					<input
+						type="text"
+						name="style"
+						onChange={(e) => setStyleInput(e.target.value)}
+						value={styleInput}
+					/>
+				</div>
+				<div className="form-input">
+					<label htmlFor="Notes">Notes</label>
+					<input
+						type="text"
+						name="notes"
+						onChange={(e) => setNotesInput(e.target.value)}
+						value={notesInput}
+					/>
+				</div>
+				<div className="form-input">
+					<label htmlFor="Rating">Rating</label>
+					<select
+						value={ratingInput}
+						onChange={(e) => setRatingInput(e.target.value)}
+					>
+						{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((ratingNumber) => {
+							return <option value={ratingNumber}>{ratingNumber}</option>;
+						})}
+					</select>
+				</div>
+				<div className="form-input">
+					<label htmlFor="Brewerys">Brewerys</label>
+					<select
+						value={breweryInput}
+						onChange={(e) => setBreweryInput(e.target.value)}
+					>
+						{brewerys.map((brewery) => {
+							return <option value={brewery._id}>{brewery.name}</option>;
+						})}
+					</select>
+				</div>
 
-	render() {
-		return (
-			<div>
-				<h2>New Beer</h2>
-				<form onSubmit={this.handleSubmit}>
-					<div className="form-input">
-						<label htmlFor="name">Name</label>
-						<input
-							type="text"
-							name="name"
-							onChange={this.handleChange}
-							value={this.state.name}
-						/>
-					</div>
-					<div className="form-input">
-						<label htmlFor="Style">Style</label>
-						<input
-							type="text"
-							name="style"
-							onChange={this.handleChange}
-							value={this.state.style}
-						/>
-					</div>
-					<div className="form-input">
-						<label htmlFor="Notes">Notes</label>
-						<input
-							type="text"
-							name="notes"
-							onChange={this.handleChange}
-							value={this.state.notes}
-						/>
-					</div>
-					<div className="form-input">
-						<label htmlFor="Rating">Rating</label>
-						<input
-							type="text"
-							name="rating"
-							onChange={this.handleChange}
-							value={this.state.rating}
-						/>
-					</div>
-					<div className="form-input">
-						<label htmlFor="completed">Completed</label>
-						<input
-							type="checkbox"
-							name="completed"
-							onChange={this.handleChange}
-							value={this.state.completed}
-						/>
-					</div>
-					<input type="submit" value="Add Beer" />
-				</form>
-			</div>
-		);
-	}
-}
+				<input type="submit" value="Add Beer" />
+			</form>
+		</div>
+	);
+};
 
 export default NewBeer;

@@ -20,7 +20,7 @@ const Routes = (props) => {
 			<Route path="/beers/:id" component={BeerShow} />
 			<Route path="/beers" component={BeerList} />
 			<Route path="/brewery/new" component={NewBrewery} />
-			<Route path="/brewery/:/id" component={BreweryShow} />
+			<Route path="/brewery/:id" component={BreweryShow} />
 			<Route path="/brewery" component={BreweryList} />
 			<Route path="/brewery/:id/edit" component={EditBrewery} />
 		</Switch>

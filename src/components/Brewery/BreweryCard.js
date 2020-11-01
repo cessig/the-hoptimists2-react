@@ -9,7 +9,16 @@ const BreweryCard = (props) => {
 				<div className="brewery-card">
 					<div className="image-wrapper"></div>
 					<h3>{name}</h3>
-					{/* <p>{beers}</p> */}
+					<ul>
+						{beers.length &&
+							beers.map((beer) => {
+								return (
+									<li key={beer._id}>
+										<a>{beer.name}</a>
+									</li>
+								);
+							})}
+					</ul>
 				</div>
 			</Link>
 			<Link to={`/brewery/${_id}/edit`} style={{ color: "black" }}>

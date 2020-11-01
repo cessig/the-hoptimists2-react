@@ -9,6 +9,7 @@ const Brewery = (props) => {
 			return <BreweryCard key={brewery._id} brewery={brewery} />;
 		});
 	}
+	console.log(props);
 
 	return (
 		<div className="brewery-container">{generateBreweryCards(props.data)}</div>

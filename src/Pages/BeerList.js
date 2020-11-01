@@ -1,5 +1,5 @@
 import React from "react";
-import Beers from "../components/Beers/Beer";
+import BeersList from "../components/Beers/BeerList";
 import BeerModel from "../Models/BeerModel";
 
 class BeerList extends React.Component {
@@ -22,7 +22,7 @@ class BeerList extends React.Component {
 
 	render() {
 		return this.state.beers.length ? (
-			<Beers data={this.state.beers} />
+			<BeersList beersArray={this.state.beers} />
 		) : (
 			<h3>Loading . . .</h3>
 		);

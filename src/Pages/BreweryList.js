@@ -1,6 +1,6 @@
 import React from "react";
 import BreweryModel from "../Models/BreweryModel";
-import Brewery from "../components/Brewery/Brewery";
+import Brewery from "../components/Brewery/BreweryList";
 
 class BreweryList extends React.Component {
 	state = {
