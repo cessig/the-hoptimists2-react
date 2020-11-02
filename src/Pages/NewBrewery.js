@@ -14,21 +14,39 @@ const NewBrewery = function (props) {
 	};
 
 	return (
-		<div>
-			<h2>New Brewery</h2>
-			<form onSubmit={handleSubmit}>
-				<div className="form-input">
-					<label htmlFor="name">Name</label>
-					<input
-						type="text"
-						name="name"
-						onChange={(e) => setNameInput(e.target.value)}
-						value={nameInput}
-					/>
-				</div>
+		<div className="columns is-mobile is-multiline is-centered">
+			<div className="column is-half">
+				<div className="box">
+					<div className="level">
+						<div className="level-item has-text-centered">
+							<h1 className="title is-centered">New Brewery</h1>
+						</div>
+					</div>
+					<form onSubmit={handleSubmit}>
+						<div className="field">
+							<label className="label" htmlFor="name">
+								Name
+							</label>
+							<div className="control">
+								<input
+									placeholder="name"
+									className="input"
+									type="text"
+									name="name"
+									onChange={(e) => setNameInput(e.target.value)}
+									value={nameInput}
+								/>
+							</div>
+						</div>
 
-				<input type="submit" value="Add Brewery" />
-			</form>
+						<input
+							className="button is-primary"
+							type="submit"
+							value="Add Brewery"
+						/>
+					</form>
+				</div>
+			</div>
 		</div>
 	);
 };

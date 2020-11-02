@@ -28,7 +28,7 @@ class BreweryList extends React.Component {
 		return this.state.brewery.length ? (
 			<>
 				<Brewery data={this.state.brewery} />
-				<button className="button" onClick={this.addBrewery}>
+				<button className="button is-primary" onClick={this.addBrewery}>
 					Add new Brewery!
 				</button>
 			</>
