@@ -38,14 +38,19 @@ const NewBeer = function (props) {
 		<div>
 			<h2>New Beer</h2>
 			<form onSubmit={handleSubmit}>
-				<div className="form-input">
-					<label htmlFor="name">Name</label>
-					<input
-						type="text"
-						name="name"
-						onChange={(e) => setNameInput(e.target.value)}
-						value={nameInput}
-					/>
+				<div className="field">
+					<label className="label" htmlFor="name">
+						Name
+					</label>
+					<div className="control">
+						<input
+							className="input"
+							type="text"
+							placeholder="name"
+							onChange={(e) => setNameInput(e.target.value)}
+							value={nameInput}
+						/>
+					</div>
 				</div>
 				<div className="form-input">
 					<label htmlFor="Style">Style</label>
@@ -65,27 +70,39 @@ const NewBeer = function (props) {
 						value={notesInput}
 					/>
 				</div>
-				<div className="form-input">
-					<label htmlFor="Rating">Rating</label>
-					<select
-						value={ratingInput}
-						onChange={(e) => setRatingInput(e.target.value)}
-					>
-						{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((ratingNumber) => {
-							return <option value={ratingNumber}>{ratingNumber}</option>;
-						})}
-					</select>
+				<div className="field">
+					<label className="label" htmlFor="Rating">
+						Rating
+					</label>
+					<div className="control">
+						<div className="select">
+							<select
+								value={ratingInput}
+								onChange={(e) => setRatingInput(e.target.value)}
+							>
+								{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((ratingNumber) => {
+									return <option value={ratingNumber}>{ratingNumber}</option>;
+								})}
+							</select>
+						</div>
+					</div>
 				</div>
-				<div className="form-input">
-					<label htmlFor="Brewerys">Brewerys</label>
-					<select
-						value={breweryInput}
-						onChange={(e) => setBreweryInput(e.target.value)}
-					>
-						{brewerys.map((brewery) => {
-							return <option value={brewery._id}>{brewery.name}</option>;
-						})}
-					</select>
+				<div className="field">
+					<label className="label" htmlFor="Brewerys">
+						Brewerys
+					</label>
+					<div className="control">
+						<div className="select">
+							<select
+								value={breweryInput}
+								onChange={(e) => setBreweryInput(e.target.value)}
+							>
+								{brewerys.map((brewery) => {
+									return <option value={brewery._id}>{brewery.name}</option>;
+								})}
+							</select>
+						</div>
+					</div>
 				</div>
 
 				<input type="submit" value="Add Beer" />

@@ -1,64 +1,65 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BreweryModel from "../Models/BreweryModel";
 
-class EditBrewery extends React.Component {
-	state = {
-		name: "",
-	};
+const EditBrewery = function (props) {
+	const [editNameInput, seteditNameInput] = useState("");
+	const [brewery, setBrewery] = useState(null);
 
-	componentDidMount() {
-		this.fetchBrewery();
-	}
-
-	fetchBrewery = () => {
-		BreweryModel.show(this.props.match.params.id).then((json) => {
-			this.setState({
-				...json.brewery,
-				formTitle: json.brewery.title,
-			});
+	useEffect(() => {
+		BreweryModel.show(props.match.params.id).then((json) => {
+			console.log(json);
+			setBrewery(json.brewery);
+			seteditNameInput(json.brewery.name);
 		});
-	};
+	}, [props.match.params.id]);
 
-	handleSubmit = (event) => {
+	const handleSubmit = (event) => {
 		event.preventDefault();
+		console.log("We got this far");
+		const breweryToEdit = { name: editNameInput };
 
-		BreweryModel.edit(this.props.match.params.id, this.state).then((json) => {
-			this.props.history.push(`/brewery/${this.props.match.params.id}`);
+		BreweryModel.edit(props.match.params.id, breweryToEdit).then((json) => {
+			props.history.push(`/brewery/${props.match.params.id}`);
 		});
 	};
 
-	handleChange = (event) => {
-		if (event.target.type !== "text") {
-			this.setState((prevState) => ({
-				completed: !prevState.completed,
-			}));
-		} else {
-			this.setState({
-				[event.target.name]: event.target.value,
-			});
-		}
+	const handleDelete = () => {
+		console.log("We got this far");
+
+		BreweryModel.destroy(props.match.params.id).then((json) => {
+			props.history.push("/brewery/");
+		});
 	};
 
-	render() {
-		return (
+	return brewery ? (
+		<>
 			<div>
-				<h2>Edit {this.state.formTitle}</h2>
-				<form onSubmit={this.handleSubmit}>
+				<h2>Edit {brewery.name}</h2>
+				<form onSubmit={handleSubmit}>
 					<div className="form-input">
 						<label htmlFor="name">Name</label>
 						<input
 							type="text"
 							name="name"
-							onChange={this.handleChange}
-							value={this.state.name}
+							onChange={(e) => seteditNameInput(e.target.value)}
+							value={editNameInput}
 						/>
 					</div>
 
 					<input type="submit" value="Update Brewery" />
 				</form>
 			</div>
-		);
-	}
-}
+			<div>
+				<div className="delete-button">
+					<button className="button is-danger" onClick={handleDelete}>
+						Delete
+					</button>
+				</div>
+			</div>
+		</>
+	) : (
+		<h3>Loading...</h3>
+	);
+};
 
 export default EditBrewery;

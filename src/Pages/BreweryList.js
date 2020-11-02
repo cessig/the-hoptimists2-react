@@ -20,9 +20,18 @@ class BreweryList extends React.Component {
 		});
 	};
 
+	addBrewery = () => {
+		this.props.history.push("/brewery/new/");
+	};
+
 	render() {
 		return this.state.brewery.length ? (
-			<Brewery data={this.state.brewery} />
+			<>
+				<Brewery data={this.state.brewery} />
+				<button className="button" onClick={this.addBrewery}>
+					Add new Brewery!
+				</button>
+			</>
 		) : (
 			<h3>Loading . . .</h3>
 		);

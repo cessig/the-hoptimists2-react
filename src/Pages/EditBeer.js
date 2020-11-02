@@ -1,62 +1,58 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BeerModel from "../Models/BeerModel";
 
-class EditBeer extends React.Component {
-	state = {
-		name: "",
-		style: "",
-		notes: "",
+const EditBeer = function (props) {
+	const [beers, setBeers] = useState(null);
+	const [editNameInput, setEditNameInput] = useState("");
+	const [editStyleInput, setEditStyleInput] = useState("");
+	const [editNotesInput, setEditNotesInput] = useState("");
+	const [editRatingInput, setEditRatingInput] = useState("");
 
-		rating: "",
-		completed: false,
-		formTitle: "",
-	};
-
-	componentDidMount() {
-		this.fetchBeer();
-	}
-
-	fetchBeer = () => {
-		BeerModel.show(this.props.match.params.id).then((json) => {
-			this.setState({
-				...json.beer,
-				formTitle: json.beer.title,
-			});
+	useEffect(() => {
+		BeerModel.show(props.match.params.id).then((json) => {
+			console.log(json);
+			setBeers(json.beer);
+			setEditNameInput(json.beer.name);
+			setEditStyleInput(json.beer.style);
+			setEditNotesInput(json.beer.notes);
+			setEditRatingInput(json.beer.rating);
 		});
-	};
+	}, [props.match.params.id]);
 
-	handleSubmit = (event) => {
+	const handleSubmit = (event) => {
 		event.preventDefault();
-
-		BeerModel.edit(this.props.match.params.id, this.state).then((json) => {
-			this.props.history.push(`/beers/${this.props.match.params.id}`);
+		console.log("We got this far");
+		const beerToEdit = {
+			name: editNameInput,
+			style: editStyleInput,
+			notes: editNotesInput,
+			rating: editRatingInput,
+		};
+		BeerModel.edit(props.match.params.id, beerToEdit).then((json) => {
+			props.history.push(`/beers/${props.match.params.id}`);
 		});
 	};
 
-	handleChange = (event) => {
-		if (event.target.type !== "text") {
-			this.setState((prevState) => ({
-				completed: !prevState.completed,
-			}));
-		} else {
-			this.setState({
-				[event.target.name]: event.target.value,
-			});
-		}
+	const handleDelete = () => {
+		console.log("We got this far");
+
+		BeerModel.destroy(props.match.params.id).then((json) => {
+			props.history.push("/beers/");
+		});
 	};
 
-	render() {
-		return (
+	return beers ? (
+		<>
 			<div>
-				<h2>Edit {this.state.formTitle}</h2>
-				<form onSubmit={this.handleSubmit}>
+				<h2>Edit {beers.name}</h2>
+				<form onSubmit={handleSubmit}>
 					<div className="form-input">
 						<label htmlFor="name">Name</label>
 						<input
 							type="text"
 							name="name"
-							onChange={this.handleChange}
-							value={this.state.name}
+							onChange={(e) => setEditNameInput(e.target.value)}
+							value={editNameInput}
 						/>
 					</div>
 					<div className="form-input">
@@ -64,8 +60,8 @@ class EditBeer extends React.Component {
 						<input
 							type="text"
 							name="style"
-							onChange={this.handleChange}
-							value={this.state.style}
+							onChange={(e) => setEditStyleInput(e.target.value)}
+							value={editStyleInput}
 						/>
 					</div>
 					<div className="form-input">
@@ -73,24 +69,34 @@ class EditBeer extends React.Component {
 						<input
 							type="text"
 							name="notes"
-							onChange={this.handleChange}
-							value={this.state.notes}
+							onChange={(e) => setEditNotesInput(e.target.value)}
+							value={editNotesInput}
 						/>
 					</div>
 					<div className="form-input">
-						<label htmlFor="completed">Completed</label>
-						<input
-							type="checkbox"
-							name="completed"
-							onChange={this.handleChange}
-							value={this.state.completed}
-						/>
+						<label htmlFor="Rating">Rating</label>
+						<select
+							value={editRatingInput}
+							onChange={(e) => setEditRatingInput(e.target.value)}
+						>
+							{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((ratingNumber) => {
+								return <option value={ratingNumber}>{ratingNumber}</option>;
+							})}
+						</select>
 					</div>
 					<input type="submit" value="Update Beer" />
 				</form>
 			</div>
-		);
-	}
-}
+
+			<div>
+				<div className="delete-button">
+					<button onClick={handleDelete}>Delete</button>
+				</div>
+			</div>
+		</>
+	) : (
+		<h3>Loading...</h3>
+	);
+};
 
 export default EditBeer;
