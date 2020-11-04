@@ -27,10 +27,16 @@ class BreweryList extends React.Component {
 	render() {
 		return this.state.brewery.length ? (
 			<>
-				<Brewery data={this.state.brewery} />
-				<button className="button is-primary" onClick={this.addBrewery}>
-					Add new Brewery!
-				</button>
+				<div class="box content has-text-left">
+					<ol type="1">
+						<li>
+							<Brewery data={this.state.brewery} />
+						</li>
+					</ol>
+					<button className="button is-primary" onClick={this.addBrewery}>
+						Add new Brewery!
+					</button>
+				</div>
 			</>
 		) : (
 			<h3>Loading . . .</h3>

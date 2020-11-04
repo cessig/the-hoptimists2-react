@@ -6,16 +6,20 @@ const BreweryCard = (props) => {
 	return (
 		<>
 			<Link to={`/brewery/${_id}`}>
-				<div className="brewery-card">
+				<div className="brewery-card is box">
 					<div className="image-wrapper"></div>
 					<h3>{name}</h3>
 					<ul>
 						{beers.length &&
 							beers.map((beer) => {
 								return (
-									<li key={beer._id}>
-										<a>{beer.name}</a>
-									</li>
+									<div className="content is-large">
+										<ul type="1">
+											<li key={beer._id}>
+												<a>{beer.name}</a>
+											</li>
+										</ul>
+									</div>
 								);
 							})}
 					</ul>

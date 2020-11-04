@@ -36,7 +36,7 @@ const Header = (props) => {
 				<div id="navbarBasicExample" className="navbar-menu">
 					<div className="navbar-start">
 						<NavLink className="navbar-item" to="/">
-							Beers!
+							Home
 						</NavLink>
 
 						<NavLink className="navbar-item" to="/beers">

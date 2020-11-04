@@ -33,27 +33,43 @@ const EditBrewery = function (props) {
 
 	return brewery ? (
 		<>
-			<div>
-				<h2>Edit {brewery.name}</h2>
-				<form onSubmit={handleSubmit}>
-					<div className="form-input">
-						<label htmlFor="name">Name</label>
-						<input
-							type="text"
-							name="name"
-							onChange={(e) => seteditNameInput(e.target.value)}
-							value={editNameInput}
-						/>
-					</div>
+			<div className="columns is-mobile is-multiline is-centered">
+				<div className="column is-half">
+					<div className="box">
+						<div className="level">
+							<div className="level-item has-text-centered">
+								<h2 className="title is-centered">Edit {brewery.name}</h2>
+							</div>
+						</div>
+						<form onSubmit={handleSubmit}>
+							<div className="field">
+								<label className="label" htmlFor="name">
+									Name
+								</label>
+								<div className="control">
+									<input
+										type="text"
+										name="name"
+										onChange={(e) => seteditNameInput(e.target.value)}
+										value={editNameInput}
+									/>
+								</div>
+							</div>
 
-					<input type="submit" value="Update Brewery" />
-				</form>
-			</div>
-			<div>
-				<div className="delete-button">
-					<button className="button is-danger" onClick={handleDelete}>
-						Delete
-					</button>
+							<input
+								className="button is-success is-light"
+								type="submit"
+								value="Update Brewery"
+							/>
+						</form>
+						<div>
+							<div className="delete-button ">
+								<button className="button is-danger" onClick={handleDelete}>
+									Delete
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</>

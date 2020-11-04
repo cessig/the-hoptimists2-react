@@ -22,7 +22,15 @@ class BeerShow extends React.Component {
 
 	render() {
 		return this.state.beer ? (
-			<BeerCard beer={this.state.beer} />
+			<>
+				<div className="content is-large is box">
+					<ul type="1">
+						<li>
+							<BeerCard beer={this.state.beer} />
+						</li>
+					</ul>
+				</div>
+			</>
 		) : (
 			<h3>Loading...</h3>
 		);
