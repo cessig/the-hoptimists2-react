@@ -43,54 +43,90 @@ const EditBeer = function (props) {
 
 	return beers ? (
 		<>
-			<div>
-				<h2>Edit {beers.name}</h2>
-				<form onSubmit={handleSubmit}>
-					<div className="form-input">
-						<label htmlFor="name">Name</label>
-						<input
-							type="text"
-							name="name"
-							onChange={(e) => setEditNameInput(e.target.value)}
-							value={editNameInput}
-						/>
+			<div className="columns is-mobile is-multiline is-centered">
+				<div className="column is-half">
+					<div className="box">
+						<div classname="level">
+							<div className="level-item has-text-centered">
+								<h1 className="title is-centered">Edit {beers.name}</h1>
+							</div>
+						</div>
+						<form onSubmit={handleSubmit}>
+							<div className="field">
+								<label className="label" htmlFor="name">
+									Name
+								</label>
+								<div className="control">
+									<input
+										className="input"
+										type="text"
+										name="name"
+										onChange={(e) => setEditNameInput(e.target.value)}
+										value={editNameInput}
+									/>
+								</div>
+							</div>
+							<div className="field">
+								<label className="label" htmlFor="style">
+									Style
+								</label>
+								<div className="control">
+									<input
+										className="input"
+										type="text"
+										name="style"
+										onChange={(e) => setEditStyleInput(e.target.value)}
+										value={editStyleInput}
+									/>
+								</div>
+							</div>
+							<div className="field">
+								<label className="label" htmlFor="notes">
+									Notes
+								</label>
+								<div className="control">
+									<input
+										className="input"
+										type="text"
+										name="notes"
+										onChange={(e) => setEditNotesInput(e.target.value)}
+										value={editNotesInput}
+									/>
+								</div>
+							</div>
+							<div className="field">
+								<label className="label" htmlFor="Rating">
+									Rating
+								</label>
+								<div className="control">
+									<div className="select">
+										<select
+											value={editRatingInput}
+											onChange={(e) => setEditRatingInput(e.target.value)}
+										>
+											{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((ratingNumber) => {
+												return (
+													<option value={ratingNumber}>{ratingNumber}</option>
+												);
+											})}
+										</select>
+									</div>
+								</div>
+							</div>
+							<input
+								className="button is-primary"
+								type="submit"
+								value="Update Beer"
+							/>
+						</form>
+						<div>
+							<div className="delete-button">
+								<button className="button is-danger" onClick={handleDelete}>
+									Delete
+								</button>
+							</div>
+						</div>
 					</div>
-					<div className="form-input">
-						<label htmlFor="style">Style</label>
-						<input
-							type="text"
-							name="style"
-							onChange={(e) => setEditStyleInput(e.target.value)}
-							value={editStyleInput}
-						/>
-					</div>
-					<div className="form-input">
-						<label htmlFor="notes">Notes</label>
-						<input
-							type="text"
-							name="notes"
-							onChange={(e) => setEditNotesInput(e.target.value)}
-							value={editNotesInput}
-						/>
-					</div>
-					<div className="form-input">
-						<label htmlFor="Rating">Rating</label>
-						<select
-							value={editRatingInput}
-							onChange={(e) => setEditRatingInput(e.target.value)}
-						>
-							{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((ratingNumber) => {
-								return <option value={ratingNumber}>{ratingNumber}</option>;
-							})}
-						</select>
-					</div>
-					<input type="submit" value="Update Beer" />
-				</form>
-			</div>
-
-			<div>
-				<div className="delete-button">
-					<button onClick={handleDelete}>Delete</button>
 				</div>
 			</div>
 		</>
