@@ -28,11 +28,10 @@ class BeerList extends React.Component {
 		return this.state.beers.length ? (
 			<>
 				<div className="content is-large">
-					<ol type="1">
-						<li>
-							<BeersList beersArray={this.state.beers} />
-						</li>
-					</ol>
+					<li>
+						<BeersList beersArray={this.state.beers} />
+					</li>
+
 					<button className="button is-primary" onClick={this.addBeer}>
 						{" "}
 						Add New Beer!

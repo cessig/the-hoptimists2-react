@@ -6,19 +6,35 @@ const BeerCard = (props) => {
 	console.log(brewery);
 	return (
 		<>
-			<Link to={`/beers/${_id}`}>
-				<div className="beer-card">
-					<div className="image-wrapper"></div>
-					<h3>{name}</h3>
-					<p>
-						{breweryName && `${breweryName}, `}
-						{style}, {notes}, {rating},
-					</p>
+			<div className="columns is-mobile is-multiline is-centered">
+				<div className="column is-half">
+					<div classname="box">
+						<Link to={`/beers/${_id}`}>
+							<div className="level">
+								<div className="level-item has-text-centered">
+									<h1 className="title is-centered">{name}</h1>
+								</div>
+							</div>
+							<div>
+								<ul>
+									<li>{breweryName && `${breweryName}, `}</li>
+									<li>{style}</li>
+									<li>{notes}</li>
+									<li>{rating}</li>
+								</ul>
+							</div>
+						</Link>
+
+						<Link
+							className="button is-primary "
+							to={`/beers/${_id}/edit`}
+							style={{ color: "black" }}
+						>
+							Edit
+						</Link>
+					</div>
 				</div>
-			</Link>
-			<Link to={`/beers/${_id}/edit`} style={{ color: "black" }}>
-				Edit
-			</Link>
+			</div>
 		</>
 	);
 };
